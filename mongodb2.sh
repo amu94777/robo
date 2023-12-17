@@ -25,3 +25,22 @@ fi
 
 echo "****mongodb configuration***"
 
+cp /home/centos/robo/mongo.repo /etc/yum.repos.d/mongo.repo 
+VALIDATE $? "COPIED MONGO REPO"
+
+dnf install mongodb-org -y  &>> $LOGFILE
+VALIDATE $? "INSTALLED MONGODB"
+
+systemctl enable mongod &>> $LOGFILE
+VALIDATE $? "ENABLED MONGOD"
+
+systemctl start mongod &>> $LOGFILE
+VALIDATE $? "STARTED MONGOD"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+VALIDATE $? "SED UPDATED"
+
+systemctl restart mongod
+VALIDATE $? "RESTARTED MONGOD"
+
+
