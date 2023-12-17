@@ -26,11 +26,14 @@ fi
 echo "*****web configuration****"
 
 
-dnf install nginx -y
+dnf install nginx -y &>> $LOGFILE
 
-systemctl enable nginx
+systemctl enable nginx 
+VALIDATE $? "enabled nginx"
 
 systemctl start nginx
+VALIDATE $? "STARTED NGINX"
+
 
 
 
