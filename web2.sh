@@ -34,6 +34,20 @@ VALIDATE $? "enabled nginx"
 systemctl start nginx
 VALIDATE $? "STARTED NGINX"
 
+rm -rf /usr/share/nginx/html/*
+VALIDATE $? "REMOVED DEFAULT CODE"
 
+curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>> $LOGFILE
+
+cd /usr/share/nginx/html
+
+unzip /tmp/web.zip &>> $LOGFILE
+VALIDATE $? "UNZIPPED CONTENT"
+
+cp /home/centos/robo/roboshop.conf /etc/nginx/default.d/roboshop.conf
+VALIDATE $? "COPIED ROBOSHOP CONF"
+
+systemctl restart nginx 
+VALIDATE $? "RESTARTED NGINX"
 
 
