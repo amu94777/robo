@@ -64,7 +64,7 @@ cp /home/centos/robo/mongo.repo /etc/yum.repos.d/mongo.repo
 
 dnf install mongodb-org-shell -y
 
-mongo --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js
+mongo --host mongodb.jaya123.shop </app/schema/catalogue.js
 
 
 
